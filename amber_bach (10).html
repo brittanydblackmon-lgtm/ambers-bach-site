@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amber's Last Walk on the Wild Side</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;background:#fff9f0;color:#333}
+.edit-banner{background:#fffbe6;border-bottom:1px solid #d4a017;padding:7px 16px;text-align:center;font-size:11px;color:#3d2b1f}
+nav{background:#ff1493;padding:11px 20px 9px;position:sticky;top:0;z-index:100;border-bottom:3px solid #c0006e;text-align:center}
+nav .nav-title{font-size:11px;font-weight:bold;color:#000;letter-spacing:2px;margin-bottom:7px}
+nav .nav-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+nav .nav-links button{font-size:10px;color:#000;cursor:pointer;background:none;border:none;font-family:Georgia,serif;letter-spacing:1px}
+.countdown-box{background:rgba(0,0,0,0.25);border-radius:14px;padding:16px 20px;margin:18px auto 0;max-width:440px}
+.countdown-label{font-size:10px;letter-spacing:3px;color:#ffe0f0;margin-bottom:12px;text-transform:uppercase}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.countdown-cell{background:rgba(0,0,0,0.3);border-radius:10px;padding:10px 4px;text-align:center}
+.countdown-num{font-size:26px;font-weight:bold;color:#fff}
+.countdown-unit{font-size:10px;color:rgba(255,255,255,0.8);letter-spacing:2px}
+.stats{padding:16px 16px 0;max-width:860px;margin:0 auto}
+.stats-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:16px}
+.stat-cell{background:#fff;border:1px solid #ff69b4;border-radius:12px;padding:12px 14px;text-align:center;min-width:80px}
+.stat-num{font-size:20px;font-weight:bold;color:#ff1493}
+.stat-label{font-size:10px;color:#c0006e;margin-top:2px;letter-spacing:1px}
+section{padding:24px 16px;max-width:860px;margin:0 auto}
+.sec-title{font-size:11px;letter-spacing:4px;color:#c0006e;margin-bottom:14px;text-transform:uppercase;border-bottom:2px solid #ff1493;padding-bottom:8px;text-align:center}
+.card{background:#fff;border:1px solid #ff69b4;border-radius:14px;padding:16px;margin-bottom:14px}
+.card.hot{border:2px solid #ff1493}
+.day-card{background:#fff;border:1px solid #ff69b4;border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.day-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.day-badge{background:#ff1493;border-radius:10px;padding:7px 11px;text-align:center;min-width:48px;flex-shrink:0}
+.day-badge-label{font-size:8px;color:#ffe0f0;letter-spacing:2px}
+.day-badge-num{font-size:19px;font-weight:bold;color:#fff}
+.day-title{font-size:15px;font-weight:bold;color:#c0006e}
+.day-sub{font-size:11px;color:#ff1493;margin-top:1px}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.tag{display:inline-flex;align-items:center;gap:4px;background:#ffe0f0;border:1px solid #ff69b4;border-radius:20px;padding:3px 11px;font-size:11px;color:#c0006e;margin:2px}
+.tag-gold{display:inline-flex;align-items:center;gap:4px;background:#fdf3e3;border:1px solid #d4a017;border-radius:20px;padding:3px 11px;font-size:11px;color:#3d2b1f;margin:2px}
+.note{background:#fff9f0;border:1px solid #d4a017;border-radius:10px;padding:10px 12px;font-size:12px;color:#3d2b1f;margin-top:10px;line-height:1.6}
+.budget-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid #ffe0f0;gap:8px}
+.budget-row span:first-child{font-size:13px;color:#444}
+.budget-row span:last-child{font-size:13px;font-weight:bold;color:#c0006e;text-align:right}
+.budget-total{background:#ff1493;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.budget-total span:first-child{font-size:13px;color:rgba(255,255,255,0.85)}
+.budget-total span:last-child{font-size:18px;font-weight:bold;color:#fff}
+.airbnb-card{background:#fff;border:1px solid #ff69b4;border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.airbnb-card.top{border:2px solid #ff1493}
+.top-badge{display:inline-block;background:#ff1493;color:#fff;font-size:11px;padding:2px 12px;border-radius:20px;margin-bottom:8px}
+.airbnb-meta{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:8px;font-size:12px;color:#555}
+.flight-row{background:#fff;border:1px solid #ff69b4;border-radius:12px;padding:12px 14px;margin-bottom:8px}
+.flight-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.flight-name{font-size:13px;font-weight:bold;color:#c0006e}
+.flight-code{font-size:11px;color:#ff1493;margin-top:1px}
+.flight-price{background:#ffe0f0;border:1px solid #ff69b4;border-radius:20px;padding:2px 10px;font-size:11px;color:#c0006e}
+.flight-desc{font-size:12px;color:#666;margin-bottom:6px;line-height:1.4}
+.packing-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:0.5px solid #ffe0f0}
+.packing-icon{font-size:15px;min-width:22px}
+.packing-text{font-size:13px;color:#444;line-height:1.4;flex:1}
+.option-card{background:#fff;border:1px solid #ff69b4;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.option-name{font-size:14px;font-weight:bold;color:#c0006e;margin-bottom:3px}
+.option-vibe{font-size:11px;color:#ff1493;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.option-desc{font-size:12px;color:#555;margin-bottom:8px;line-height:1.5}
+.btn{display:inline-block;background:#ff1493;border-radius:20px;padding:4px 14px;font-size:11px;color:#fff;font-weight:bold;cursor:pointer;border:none;font-family:Georgia,serif}
+.btn-outline{display:inline-block;background:#fff;border:1px solid #ff1493;border-radius:20px;padding:4px 14px;font-size:11px;color:#ff1493;font-weight:bold;cursor:pointer;font-family:Georgia,serif}
+.btn-add{background:none;border:1px dashed #ff69b4;border-radius:10px;padding:7px 14px;font-size:12px;color:#ff1493;cursor:pointer;font-family:Georgia,serif;margin-top:6px}
+.btn-add-gold{background:none;border:1px dashed #ff69b4;border-radius:20px;padding:3px 10px;font-size:10px;color:#ff1493;cursor:pointer}
+.btn-tag-del{background:none;border:none;color:#ff69b4;cursor:pointer;font-size:12px;padding:0;line-height:1}
+.payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.payment-cell{background:#ffe0f0;border:1px solid #ff69b4;border-radius:12px;padding:14px;text-align:center}
+.rsvp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.rsvp-stat{background:#fff;border:1px solid #ff69b4;border-radius:12px;padding:12px;text-align:center}
+.rsvp-stat-num{font-size:20px;font-weight:bold}
+.rsvp-stat-label{font-size:10px;color:#c0006e;margin-top:2px}
+input,select,textarea{width:100%;padding:10px 13px;border:1px solid #ff69b4;border-radius:10px;font-size:14px;font-family:Georgia,serif;margin-bottom:10px;outline:none;background:#fff;display:block}
+textarea{resize:vertical;min-height:60px}
+.rsvp-response{background:#fff;border:1px solid #ff69b4;border-radius:12px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.rsvp-badge{border-radius:20px;padding:2px 10px;font-size:11px;white-space:nowrap}
+.photos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:14px}
+.photo-cell{border-radius:10px;overflow:hidden;border:2px solid #ff69b4;position:relative}
+.photo-cell img,.photo-cell video{width:100%;height:140px;object-fit:cover;display:block}
+.photo-del{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.5);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:13px;cursor:pointer}
+.footer-inner{background:rgba(255,20,147,0.88);text-align:center;padding:24px 20px 36px}
+[contenteditable]{cursor:text;border-bottom:1px dashed rgba(255,20,147,0.35);outline:none;min-width:30px;display:inline-block}
+[contenteditable]:focus{background:rgba(255,20,147,0.07);border-bottom:1px solid #ff1493;border-radius:3px}
+.admin-only{display:none!important}
+body.is-admin .admin-only{display:inline-block!important}
+.add-form{background:#fff;border:1px dashed #ff69b4;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.add-form .btns{display:flex;gap:8px;margin-top:4px}
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:#ff80c4}
+@keyframes bgFadeIn{to{opacity:1}}
+.login-curtain-left,.login-curtain-right{position:absolute;top:0;height:100%;width:50%;background:#c0006e;z-index:10;transition:transform 1.1s cubic-bezier(0.86,0,0.07,1)}
+.login-curtain-left{left:0}
+.login-curtain-right{right:0}
+.curtains-open .login-curtain-left{transform:translateX(-100%)}
+.curtains-open .login-curtain-right{transform:translateX(100%)}
+#login-content{position:relative;z-index:20;text-align:center;width:100%;max-width:480px;opacity:0;transform:translateY(30px);transition:opacity 0.8s ease 1.2s,transform 0.8s ease 1.2s}
+#login-content.visible{opacity:1;transform:translateY(0)}
+.entrance-emoji{font-size:52px;display:block;animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.entrance-title{font-size:clamp(22px,5.5vw,46px);font-weight:bold;color:#fff;line-height:1.2;margin:12px 0 4px;text-shadow:0 2px 6px rgba(0,0,0,0.55),0 4px 24px rgba(0,0,0,0.35);text-align:center}
+.entrance-sub{font-size:20px;font-weight:bold;color:#fff;margin-bottom:6px;text-shadow:0 2px 6px rgba(0,0,0,0.5)}
+.entrance-tagline{font-size:15px;font-style:italic;color:#fff;margin-bottom:28px;letter-spacing:1px;text-shadow:0 2px 6px rgba(0,0,0,0.45)}
+.entrance-divider{width:60px;height:3px;background:#fff;border-radius:3px;margin:0 auto 24px;opacity:0.7}
+.login-box{background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:2px solid rgba(255,255,255,0.5);border-radius:24px;padding:28px 28px 24px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.25)}
+.login-box input[type="password"]{background:rgba(255,255,255,0.9);border:2px solid rgba(255,255,255,0.8);border-radius:14px;font-size:16px;text-align:center;letter-spacing:4px;padding:14px;transition:all 0.3s;margin-bottom:10px}
+.login-box input[type="password"]:focus{background:#fff;border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,0.3)}
+.login-btn{background:linear-gradient(135deg,#fff 0%,#ffe0f0 100%);color:#c0006e;border:none;border-radius:20px;padding:13px 36px;font-size:14px;cursor:pointer;font-family:Georgia,serif;letter-spacing:2px;font-weight:bold;width:100%;box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:transform 0.15s,box-shadow 0.15s}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.3)}
+#pw-error{font-size:13px;margin-top:10px;min-height:20px}
+#unlock-flash{position:fixed;inset:0;background:#ff1493;z-index:9999;opacity:0;pointer-events:none;transition:opacity 0.15s}
+.sparkle{position:absolute;pointer-events:none;font-size:18px;animation:sparkleFly 3s ease-in-out infinite}
+@keyframes sparkleFly{0%{opacity:0;transform:translateY(0) scale(0.5)}20%{opacity:1;transform:translateY(-20px) scale(1)}80%{opacity:0.6;transform:translateY(-60px) scale(0.8)}100%{opacity:0;transform:translateY(-100px) scale(0.3)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+#main-app{display:none}
+.sync-indicator{position:fixed;bottom:16px;right:16px;background:#ff1493;color:#fff;border-radius:20px;padding:6px 14px;font-size:11px;font-family:Georgia,serif;display:none;z-index:999}
+.award-select{width:auto;flex:1;min-width:100px;padding:8px 12px;border:1px solid #ff69b4;border-radius:10px;font-size:13px;font-family:Georgia,serif;outline:none;margin-bottom:0;display:inline-block}
+</style>
+</head>
+<body>
+<div id="sync-indicator" class="sync-indicator">💾 Saving...</div>
+<div id="unlock-flash"></div>
+
+<div id="login-screen">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0;animation:bgFadeIn 1.2s ease 0.2s forwards" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs><pattern id="loginleo" x="0" y="0" width="160" height="140" patternUnits="userSpaceOnUse"><rect width="160" height="140" fill="#ff80c4"/><g transform="rotate(-18,22,18)"><ellipse cx="22" cy="18" rx="12" ry="8" fill="#c0005a"/><ellipse cx="22" cy="18" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(12,60,14)"><ellipse cx="60" cy="14" rx="10" ry="7" fill="#c0005a"/><ellipse cx="60" cy="14" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,100,20)"><ellipse cx="100" cy="20" rx="13" ry="8" fill="#c0005a"/><ellipse cx="100" cy="20" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,138,16)"><ellipse cx="138" cy="16" rx="10" ry="6" fill="#c0005a"/><ellipse cx="138" cy="16" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(-15,8,52)"><ellipse cx="8" cy="52" rx="11" ry="7" fill="#c0005a"/><ellipse cx="8" cy="52" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(8,42,46)"><ellipse cx="42" cy="46" rx="13" ry="8" fill="#c0005a"/><ellipse cx="42" cy="46" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-22,80,50)"><ellipse cx="80" cy="50" rx="11" ry="7" fill="#c0005a"/><ellipse cx="80" cy="50" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(15,118,48)"><ellipse cx="118" cy="48" rx="12" ry="7" fill="#c0005a"/><ellipse cx="118" cy="48" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-10,152,52)"><ellipse cx="152" cy="52" rx="10" ry="6" fill="#c0005a"/><ellipse cx="152" cy="52" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(18,25,88)"><ellipse cx="25" cy="88" rx="12" ry="8" fill="#c0005a"/><ellipse cx="25" cy="88" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-12,64,84)"><ellipse cx="64" cy="84" rx="10" ry="6" fill="#c0005a"/><ellipse cx="64" cy="84" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(6,102,90)"><ellipse cx="102" cy="90" rx="13" ry="8" fill="#c0005a"/><ellipse cx="102" cy="90" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-20,140,86)"><ellipse cx="140" cy="86" rx="11" ry="7" fill="#c0005a"/><ellipse cx="140" cy="86" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(14,12,122)"><ellipse cx="12" cy="122" rx="10" ry="7" fill="#c0005a"/><ellipse cx="12" cy="122" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,48,118)"><ellipse cx="48" cy="118" rx="13" ry="8" fill="#c0005a"/><ellipse cx="48" cy="118" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,86,124)"><ellipse cx="86" cy="124" rx="11" ry="6" fill="#c0005a"/><ellipse cx="86" cy="124" rx="6" ry="3" fill="#ff80c4"/></g><g transform="rotate(-16,124,120)"><ellipse cx="124" cy="120" rx="12" ry="7" fill="#c0005a"/><ellipse cx="124" cy="120" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(10,156,126)"><ellipse cx="156" cy="126" rx="10" ry="6" fill="#c0005a"/><ellipse cx="156" cy="126" rx="5" ry="3" fill="#ff80c4"/></g></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#loginleo)"/>
+  </svg>
+  <div class="login-curtain-left"></div>
+  <div class="login-curtain-right"></div>
+  <span class="sparkle" style="left:8%;top:70%;animation-delay:0s">💗</span>
+  <span class="sparkle" style="left:18%;top:60%;animation-delay:0.7s">🐆</span>
+  <span class="sparkle" style="left:75%;top:65%;animation-delay:1.4s">💗</span>
+  <span class="sparkle" style="left:88%;top:72%;animation-delay:0.3s">✨</span>
+  <span class="sparkle" style="left:50%;top:80%;animation-delay:1s">🐆</span>
+  <span class="sparkle" style="left:35%;top:75%;animation-delay:1.8s">💗</span>
+  <span class="sparkle" style="left:62%;top:78%;animation-delay:0.5s">✨</span>
+  <div id="login-content">
+    <span class="entrance-emoji">🐆</span>
+    <div class="entrance-title">Amber's Last Walk<br>on the Wild Side</div>
+    <div class="entrance-sub">"Wild Before the Vows"</div>
+    <div class="entrance-tagline">Miami · Nov 6–9, 2026</div>
+    <div class="entrance-divider"></div>
+    <div class="login-box">
+      <div style="font-size:13px;color:rgba(255,255,255,0.9);margin-bottom:14px;letter-spacing:1px">Girls only — enter the password 💗</div>
+      <input type="password" id="pw-input" placeholder="password..."/>
+      <button class="login-btn" onclick="doLogin()">Let Me In 🐆</button>
+      <div id="pw-error"></div>
+    </div>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="edit-banner" id="edit-banner" style="display:none">✏️ <strong>Admin edit mode</strong> — click any underlined text to edit. All changes sync automatically.</div>
+  <nav>
+    <div class="nav-title">🐆 AMBER'S LAST WALK ON THE WILD SIDE</div>
+    <div class="nav-links">
+      <button onclick="goTo('itinerary')">itinerary</button>
+      <button onclick="goTo('budget')">budget</button>
+      <button onclick="goTo('airbnbs')">airbnbs</button>
+      <button onclick="goTo('flights')">flights</button>
+      <button onclick="goTo('packing')">packing</button>
+      <button onclick="goTo('payment')">payment</button>
+      <button onclick="goTo('options')">options</button>
+      <button onclick="goTo('playlists')">playlists</button>
+      <button onclick="goTo('rsvp')">rsvp</button>
+      <button onclick="goTo('photos')">photos</button>
+      <button onclick="goTo('mentions')">notes</button>
+      <button onclick="goTo('awards')">awards</button>
+    </div>
+  </nav>
+
+  <div style="position:relative;overflow:hidden;border-bottom:4px solid #c0006e">
+    <svg style="position:absolute;inset:0;width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="heroleo" x="0" y="0" width="160" height="140" patternUnits="userSpaceOnUse"><rect width="160" height="140" fill="#ff80c4"/><g transform="rotate(-18,22,18)"><ellipse cx="22" cy="18" rx="12" ry="8" fill="#c0005a"/><ellipse cx="22" cy="18" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(12,60,14)"><ellipse cx="60" cy="14" rx="10" ry="7" fill="#c0005a"/><ellipse cx="60" cy="14" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,100,20)"><ellipse cx="100" cy="20" rx="13" ry="8" fill="#c0005a"/><ellipse cx="100" cy="20" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,138,16)"><ellipse cx="138" cy="16" rx="10" ry="6" fill="#c0005a"/><ellipse cx="138" cy="16" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(-15,8,52)"><ellipse cx="8" cy="52" rx="11" ry="7" fill="#c0005a"/><ellipse cx="8" cy="52" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(8,42,46)"><ellipse cx="42" cy="46" rx="13" ry="8" fill="#c0005a"/><ellipse cx="42" cy="46" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-22,80,50)"><ellipse cx="80" cy="50" rx="11" ry="7" fill="#c0005a"/><ellipse cx="80" cy="50" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(15,118,48)"><ellipse cx="118" cy="48" rx="12" ry="7" fill="#c0005a"/><ellipse cx="118" cy="48" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-10,152,52)"><ellipse cx="152" cy="52" rx="10" ry="6" fill="#c0005a"/><ellipse cx="152" cy="52" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(18,25,88)"><ellipse cx="25" cy="88" rx="12" ry="8" fill="#c0005a"/><ellipse cx="25" cy="88" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-12,64,84)"><ellipse cx="64" cy="84" rx="10" ry="6" fill="#c0005a"/><ellipse cx="64" cy="84" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(6,102,90)"><ellipse cx="102" cy="90" rx="13" ry="8" fill="#c0005a"/><ellipse cx="102" cy="90" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-20,140,86)"><ellipse cx="140" cy="86" rx="11" ry="7" fill="#c0005a"/><ellipse cx="140" cy="86" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(14,12,122)"><ellipse cx="12" cy="122" rx="10" ry="7" fill="#c0005a"/><ellipse cx="12" cy="122" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,48,118)"><ellipse cx="48" cy="118" rx="13" ry="8" fill="#c0005a"/><ellipse cx="48" cy="118" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,86,124)"><ellipse cx="86" cy="124" rx="11" ry="6" fill="#c0005a"/><ellipse cx="86" cy="124" rx="6" ry="3" fill="#ff80c4"/></g><g transform="rotate(-16,124,120)"><ellipse cx="124" cy="120" rx="12" ry="7" fill="#c0005a"/><ellipse cx="124" cy="120" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(10,156,126)"><ellipse cx="156" cy="126" rx="10" ry="6" fill="#c0005a"/><ellipse cx="156" cy="126" rx="5" ry="3" fill="#ff80c4"/></g></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#heroleo)"/>
+    </svg>
+    <div style="position:relative;z-index:1;background:rgba(255,20,147,0.72);padding:40px 24px 36px;text-align:center">
+      <div style="font-size:13px;font-weight:bold;letter-spacing:5px;color:#000;margin-bottom:10px;text-transform:uppercase">🐆 bachelorette weekend · miami florida 🐆</div>
+      <div style="font-size:38px;font-weight:bold;color:#000;line-height:1.1;margin-bottom:2px;text-shadow:0 2px 6px rgba(0,0,0,0.4)"><span contenteditable spellcheck="false" data-key="hero_title1">Amber's Last Walk</span></div>
+      <div style="font-size:34px;font-weight:bold;color:#000;line-height:1.1;margin-bottom:10px;text-shadow:0 2px 6px rgba(0,0,0,0.4)"><span contenteditable spellcheck="false" data-key="hero_title2">on the Wild Side</span></div>
+      <div style="font-size:18px;font-weight:bold;color:#000;margin-bottom:14px;font-style:italic;text-shadow:0 2px 6px rgba(0,0,0,0.35)"><span contenteditable spellcheck="false" data-key="hero_tagline">"Wild Before the Vows"</span></div>
+      <span style="display:inline-block;background:#000;border-radius:20px;padding:8px 26px;font-size:15px;font-weight:bold;color:#fff;letter-spacing:3px"><span contenteditable spellcheck="false" data-key="hero_dates">Nov 6 – 9, 2026</span></span>
+      <div style="margin-top:12px;font-size:15px;font-weight:bold;color:#000;letter-spacing:2px;text-align:center;text-shadow:0 2px 6px rgba(0,0,0,0.35)"><span contenteditable spellcheck="false" data-key="hero_sub">she's becoming a Johnson 💍</span></div>
+      <div class="countdown-box">
+        <div class="countdown-label">countdown to miami — nov 6</div>
+        <div class="countdown-grid">
+          <div class="countdown-cell"><div class="countdown-num" id="cd-d">00</div><div class="countdown-unit">DAYS</div></div>
+          <div class="countdown-cell"><div class="countdown-num" id="cd-h">00</div><div class="countdown-unit">HRS</div></div>
+          <div class="countdown-cell"><div class="countdown-num" id="cd-m">00</div><div class="countdown-unit">MIN</div></div>
+          <div class="countdown-cell"><div class="countdown-num" id="cd-s">00</div><div class="countdown-unit">SEC</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats"><div class="stats-grid" id="stats-grid"></div></div>
+  <section id="itinerary"><div class="sec-title">🗓 The Itinerary</div><div id="itinerary-list"></div></section>
+  <section id="budget">
+    <div class="sec-title">💰 Budget Breakdown</div>
+    <div class="card"><div id="budget-rows"></div><button class="btn-add admin-only" onclick="addBudgetRow()">+ Add line item</button></div>
+    <div class="budget-total"><span>estimated total per person</span><span contenteditable spellcheck="false" data-key="budget_total">~$1,013–$1,562</span></div>
+    <div style="background:#fff9f0;border:1px solid #d4a017;border-radius:10px;padding:10px 12px;font-size:12px;color:#3d2b1f;margin-top:10px;line-height:1.6;text-align:center">🗓 <span style="font-weight:900">Deadline: May 15th</span> — Airbnb deposit (~$175/person) · Have at least $150 for your flight by May 15th</div>
+  </section>
+  <section id="airbnbs">
+    <div class="sec-title">🏠 Airbnb</div>
+    <div id="airbnb-list"></div>
+    <button class="btn-add admin-only" onclick="showAddAirbnb()">+ Add Airbnb</button>
+    <div id="airbnb-add-form" style="display:none"></div>
+  </section>
+  <section id="flights">
+    <div class="sec-title">✈️ Flight Info</div>
+    <div class="card">
+      <div style="text-align:center;margin-bottom:14px"><div style="font-size:28px;margin-bottom:6px">✈️</div><div style="font-size:14px;font-weight:bold;color:#c0006e;margin-bottom:4px">Everyone books their own flight!</div><div style="font-size:12px;color:#666;line-height:1.5">Fly into <strong>Miami International Airport (MIA)</strong>.</div></div>
+      <div id="flights-list"></div>
+      <button class="btn-add admin-only" onclick="showAddFlight()">+ Add airline</button>
+      <div id="flight-add-form" style="display:none"></div>
+    </div>
+    <div class="note" style="margin-top:8px;text-align:center"><span contenteditable spellcheck="false" data-key="flight_note">💡 Set a Google Flights price alert for DFW → MIA on Nov 6–9 — you'll get notified when prices drop!</span></div>
+  </section>
+  <section id="packing"><div class="sec-title">👜 What to Pack</div><div class="card" id="packing-list"></div></section>
+  <section id="payment">
+    <div class="sec-title">💸 Send Payment</div>
+    <div class="card hot">
+      <div style="text-align:center;margin-bottom:14px"><div style="font-size:14px;font-weight:bold;color:#c0006e;margin-bottom:4px">Send your portion to lock in your spot 💗</div></div>
+      <div class="payment-grid">
+        <div class="payment-cell"><div style="font-size:22px;margin-bottom:5px">📱</div><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:4px">Apple Pay</div><div style="font-size:15px;color:#ff1493;font-weight:bold;margin-bottom:4px"><span contenteditable spellcheck="false" data-key="payment_phone">469-881-2362</span></div></div>
+        <div class="payment-cell"><div style="font-size:22px;margin-bottom:5px">💳</div><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:4px">Zelle</div><div style="font-size:15px;color:#ff1493;font-weight:bold;margin-bottom:4px"><span contenteditable spellcheck="false" data-key="payment_phone2">469-881-2362</span></div></div>
+      </div>
+      <div class="note" style="text-align:center;margin-top:12px"><span contenteditable spellcheck="false" data-key="payment_note">🗓 Deadline: May 15th · Questions? Text the group chat 🐆</span></div>
+    </div>
+  </section>
+  <section id="options">
+    <div class="sec-title">🌴 Fun in the Sun — Miami Edition</div>
+    <div style="margin-bottom:22px"><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:8px;letter-spacing:1px">Restaurants 🍽</div><div id="dinner-list"></div><button class="btn-add admin-only" onclick="showAddForm('dinner')">+ Add option</button><div id="dinner-add-form" style="display:none"></div></div>
+    <div style="margin-bottom:22px"><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:8px;letter-spacing:1px">Entertainment 🎉🔥</div><div id="activities-list"></div><button class="btn-add admin-only" onclick="showAddForm('activities')">+ Add option</button><div id="activities-add-form" style="display:none"></div></div>
+    <div style="margin-bottom:22px"><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:8px;letter-spacing:1px">Clubs 🪩</div><div id="club-list"></div><button class="btn-add admin-only" onclick="showAddForm('club')">+ Add option</button><div id="club-add-form" style="display:none"></div></div>
+    <div style="margin-bottom:22px"><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:8px;letter-spacing:1px">Bars 🍹</div><div id="brunch-list"></div><button class="btn-add admin-only" onclick="showAddForm('brunch')">+ Add option</button><div id="brunch-add-form" style="display:none"></div></div>
+    <div style="margin-bottom:22px"><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:8px;letter-spacing:1px">Activities 🌴</div><div id="activities2-list"></div><button class="btn-add admin-only" onclick="showAddForm('activities2')">+ Add option</button><div id="activities2-add-form" style="display:none"></div></div>
+  </section>
+
+  <!-- ── PLAYLISTS (added) ── -->
+  <section id="playlists">
+    <div class="sec-title">🎵 Trip Playlists</div>
+    <div id="playlists-board"></div>
+  </section>
+
+  <section id="rsvp">
+    <div class="sec-title">💌 RSVP</div>
+    <div class="rsvp-stats" id="rsvp-stats"></div>
+    <div class="card hot">
+      <div style="font-size:14px;font-weight:bold;color:#c0006e;margin-bottom:12px;text-align:center">Are you coming to Miami? 🐆</div>
+      <input type="text" id="rsvp-name" placeholder="Your name"/>
+      <select id="rsvp-status" onchange="toggleHandle()"><option value="yes">Yes — I'll be there! 🎉</option><option value="maybe">Maybe — checking on it</option><option value="no">Can't make it 😢</option></select>
+      <div id="rsvp-handle-wrap"><input type="text" id="rsvp-handle" placeholder="Your IG or TikTok handle (optional) 📸"/></div>
+      <input type="tel" id="rsvp-phone" placeholder="Your phone number (for award texts 🏆 — optional)"/>
+      <input type="text" id="rsvp-note" placeholder="Note — dietary needs, hype message, shirt size..."/>
+      <div style="text-align:center"><button onclick="submitRsvp()" style="background:#ff1493;color:#fff;border:none;border-radius:20px;padding:11px 26px;font-size:13px;cursor:pointer;font-family:Georgia,serif;letter-spacing:2px">Submit RSVP 💗</button></div>
+      <div id="rsvp-done" style="display:none;color:#1d9e75;font-size:13px;margin-top:10px;font-weight:bold;text-align:center">You're in! See you in Miami 🐆</div>
+    </div>
+    <div id="rsvp-responses"></div>
+  </section>
+  <section id="photos">
+    <div class="sec-title">📸 Trip Photos & Videos</div>
+    <div class="card hot">
+      <div style="text-align:center"><div style="font-size:26px;margin-bottom:6px">📸</div><div style="font-size:13px;font-weight:bold;color:#c0006e;margin-bottom:4px">Add your photos & videos from the trip!</div><div style="font-size:12px;color:#666;margin-bottom:14px">Upload your fav moments 🐆💗</div><input type="file" id="file-input" accept="image/*,video/*" multiple style="display:none"/><button onclick="document.getElementById('file-input').click()" style="background:#ff1493;color:#fff;border:none;border-radius:20px;padding:10px 24px;font-size:13px;cursor:pointer;font-family:Georgia,serif">Upload Photos / Videos 💗</button></div>
+      <div id="photos-grid" class="photos-grid"></div>
+      <div id="photos-empty" style="text-align:center;margin-top:14px;color:#ff69b4;font-size:13px;font-style:italic">No photos yet — upload your memories! 🌴</div>
+    </div>
+  </section>
+  <section id="mentions">
+    <div class="sec-title">💬 Notes for Amber</div>
+    <div style="font-size:12px;color:#888;text-align:center;margin-bottom:16px">Leave a message for the bride-to-be 💗</div>
+    <div class="card hot">
+      <input type="text" id="mention-name" placeholder="Your name"/>
+      <textarea id="mention-text" placeholder="Leave a note for Amber or the group... 🐆💗"></textarea>
+      <div style="text-align:center"><button onclick="submitMention()" style="background:#ff1493;color:#fff;border:none;border-radius:20px;padding:11px 26px;font-size:13px;cursor:pointer;font-family:Georgia,serif;letter-spacing:2px">Leave a Note 💗</button></div>
+      <div id="mention-done" style="display:none;color:#1d9e75;font-size:13px;margin-top:10px;font-weight:bold;text-align:center">Note left! 🐆</div>
+    </div>
+    <div id="mentions-board" style="margin-top:8px"></div>
+  </section>
+  <section id="awards">
+    <div class="sec-title">🏆 Trip Awards</div>
+    <div style="font-size:12px;color:#888;text-align:center;margin-bottom:16px">Vote after the trip — winners announced when we're home 🐆</div>
+    <div id="awards-board"></div>
+  </section>
+  <div style="position:relative;overflow:hidden">
+    <svg style="position:absolute;inset:0;width:100%;height:100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs><pattern id="footerleo" x="0" y="0" width="160" height="140" patternUnits="userSpaceOnUse"><rect width="160" height="140" fill="#ff80c4"/><g transform="rotate(-18,22,18)"><ellipse cx="22" cy="18" rx="12" ry="8" fill="#c0005a"/><ellipse cx="22" cy="18" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(12,60,14)"><ellipse cx="60" cy="14" rx="10" ry="7" fill="#c0005a"/><ellipse cx="60" cy="14" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,100,20)"><ellipse cx="100" cy="20" rx="13" ry="8" fill="#c0005a"/><ellipse cx="100" cy="20" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,138,16)"><ellipse cx="138" cy="16" rx="10" ry="6" fill="#c0005a"/><ellipse cx="138" cy="16" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(-15,8,52)"><ellipse cx="8" cy="52" rx="11" ry="7" fill="#c0005a"/><ellipse cx="8" cy="52" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(8,42,46)"><ellipse cx="42" cy="46" rx="13" ry="8" fill="#c0005a"/><ellipse cx="42" cy="46" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-22,80,50)"><ellipse cx="80" cy="50" rx="11" ry="7" fill="#c0005a"/><ellipse cx="80" cy="50" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(15,118,48)"><ellipse cx="118" cy="48" rx="12" ry="7" fill="#c0005a"/><ellipse cx="118" cy="48" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-10,152,52)"><ellipse cx="152" cy="52" rx="10" ry="6" fill="#c0005a"/><ellipse cx="152" cy="52" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(18,25,88)"><ellipse cx="25" cy="88" rx="12" ry="8" fill="#c0005a"/><ellipse cx="25" cy="88" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-12,64,84)"><ellipse cx="64" cy="84" rx="10" ry="6" fill="#c0005a"/><ellipse cx="64" cy="84" rx="5" ry="3" fill="#ff80c4"/></g><g transform="rotate(6,102,90)"><ellipse cx="102" cy="90" rx="13" ry="8" fill="#c0005a"/><ellipse cx="102" cy="90" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(-20,140,86)"><ellipse cx="140" cy="86" rx="11" ry="7" fill="#c0005a"/><ellipse cx="140" cy="86" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(14,12,122)"><ellipse cx="12" cy="122" rx="10" ry="7" fill="#c0005a"/><ellipse cx="12" cy="122" rx="5" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(-8,48,118)"><ellipse cx="48" cy="118" rx="13" ry="8" fill="#c0005a"/><ellipse cx="48" cy="118" rx="7" ry="4" fill="#ff80c4"/></g><g transform="rotate(20,86,124)"><ellipse cx="86" cy="124" rx="11" ry="6" fill="#c0005a"/><ellipse cx="86" cy="124" rx="6" ry="3" fill="#ff80c4"/></g><g transform="rotate(-16,124,120)"><ellipse cx="124" cy="120" rx="12" ry="7" fill="#c0005a"/><ellipse cx="124" cy="120" rx="6" ry="3.5" fill="#ff80c4"/></g><g transform="rotate(10,156,126)"><ellipse cx="156" cy="126" rx="10" ry="6" fill="#c0005a"/><ellipse cx="156" cy="126" rx="5" ry="3" fill="#ff80c4"/></g></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#footerleo)"/>
+    </svg>
+    <div class="footer-inner" style="position:relative;z-index:1">
+      <div style="font-size:26px;margin-bottom:8px">🐆💗🥂</div>
+      <div style="font-size:12px;color:#fff;letter-spacing:3px;margin-bottom:3px">AMBER'S LAST WALK ON THE WILD SIDE</div>
+      <div style="font-size:11px;color:#ffe0f0;letter-spacing:2px;margin-bottom:3px">WILD BEFORE THE VOWS · MIAMI 2026</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.7)">soon to be Mrs. Johnson 💍</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PASSWORD="johnson2026",ADMIN_PASSWORD="baddiechain";
+let isAdmin=false,syncTimer=null;
+const FB="https://amber-bach-default-rtdb.firebaseio.com";
+async function fbGet(p){try{const r=await fetch(FB+"/"+p+".json");if(!r.ok)return null;return await r.json();}catch{return null;}}
+async function fbSet(p,v){try{await fetch(FB+"/"+p+".json",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(v)});}catch{}}
+async function loadAll(){try{return await Promise.race([fbGet("data"),new Promise(r=>setTimeout(()=>r(null),5000))])||{};}catch{return{};}}
+function showSync(){const el=document.getElementById("sync-indicator");el.style.display="block";clearTimeout(syncTimer);syncTimer=setTimeout(()=>el.style.display="none",1200);}
+function save(k,v){showSync();fbSet("data/"+k,v);}
+
+// ── Defaults ──
+const defaultStats=[["13","girls"],["3","nights"],["DFW","departs"],["MIA","arrives"],["3pm","check-in"]];
+const defaultItinerary=[
+  {day:"1",title:"Arrive & Turn Up",sub:"Fri · Check-in 3pm",tags:["3pm check-in","grab quick food","sexy lingerie animal print party 🐆","strippers — men & women 🔥","games night","pool & hot tub"],gold:["cash for singles 😉"],note:"Check-in is at 3pm. Grab food on the way or order in. Tonight is the sexy lingerie animal print party — save your energy!"},
+  {day:"2",title:"The Big Day",sub:"Sat · Pole dancing · Dinner · Club",tags:["pole dancing class 💃","get glam","dinner out","nightclub — details dropping soon 🪩"],gold:["your best fit for dinner — it's also your club outfit"],note:"Pole dancing in the morning, then wind down before getting glam for dinner. We'll do a section at the club — venue announcement coming soon!"},
+  {day:"3",title:"Yacht Day",sub:"Sun · Brunch · Yacht",tags:["brunch 🥂","yacht 🛥️"],gold:["bathing suit","coverup"],note:"Brunch first then we board the yacht! THE photo moment of the whole trip."},
+  {day:"4",title:"Checkout & Fly Home",sub:"Mon · Checkout 10am",tags:["checkout 10am","Sprinter to MIA","fly home"],gold:["confirm your flight","goodbye Miami 🥲"],note:"Checkout at 10am sharp — pack your bags Sunday night!"}
+];
+const defaultBudget=[["Airbnb (3 nights ÷ 13)","~$250–$350"],["Flights DFW → MIA *book early!","~$150–$300"],["Sprinter w/ chauffeur","~$138–$162"],["Yacht charter (4–6 hrs)","~$115–$200"],["Pole dancing class","~$30–$60"],["Dinner Saturday","~$60–$100"],["Nightclub section + drinks","~$100–$150"],["Strippers Friday (÷ 13)","~$30–$60"],["Brunch Sunday","~$40–$80"],["Food & misc","~$100–$200"]];
+const defaultFlights=[{name:"American Airlines",code:"DFW → MIA",price:"Check aa.com",desc:"Most daily nonstop flights from DFW. Best for flexibility and miles. ~2h 45m.",link:"https://aa.com"},{name:"Southwest Airlines",code:"DAL → MIA",price:"Check southwest.com",desc:"From Love Field. Free 2 checked bags, no change fees. Great for groups.",link:"https://southwest.com"},{name:"Spirit Airlines",code:"DFW → MIA",price:"Check spirit.com",desc:"Budget nonstop from DFW. Watch for bag fees (~$70 extra).",link:"https://spirit.com"},{name:"Frontier Airlines",code:"DFW → MIA",price:"Check flyfrontier.com",desc:"Another budget nonstop from DFW. Check bag fees.",link:"https://flyfrontier.com"}];
+const defaultAirbnbs=[{name:"Luxury Lakeview w/ Basketball/Golf/Games/Pool & Spa",loc:"Hialeah, FL",beds:"6 BR / 5 BA",guests:"16+ guests",rating:"4.85 (13 reviews)",price:"$4,543 / 3 nights (~$349/person)",tags:["heated pool","hot tub","lakeview","rooftop terrace","mini golf","fire pit","16+ capacity"],link:"https://www.airbnb.com/rooms/1566241416381831966",rec:true},{name:"Lakefront 8BR Resort • Game Room/Spa/Kayak",loc:"Miami Gardens, FL",beds:"8 BR / 5 BA",guests:"12 guests",rating:"4.94 (54 reviews)",price:"$5,100 / 3 nights (~$392/person)",tags:["infinity pool","jacuzzi","game room","arcade","kayaks","fire pit","8 bedrooms"],link:"https://www.airbnb.com/rooms/1593824986595197035",rec:false},{name:"The Lux Mansion w/ Pickleball, Golf, Pool & Fun",loc:"Richmond West, Miami",beds:"7 BR / 4 BA",guests:"12 guests",rating:"5.0 (1 review)",price:"$2,811 / 3 nights (~$216/person)",tags:["heated pool","jacuzzi","pickleball","basketball","trampoline","pool table","foosball"],link:"https://www.airbnb.com/rooms/1254322374793846331",rec:false}];
+const defaultPacking=[["🐆","Sexy lingerie animal print — REQUIRED","Friday night theme. The wilder the better. Mandatory!"],["👗","Dinner / club outfit","Saturday dinner IS your club outfit. Think Miami chic: elevated, glam, main character energy."],["🔥","Extra night out outfit (optional)","Want to get a little more wild? Bring a backup fit."],["👙","Bathing suit (bring 2!)","Pool days + Sunday yacht. Cheetah print encouraged!"],["🩳","Coverup / resort wear","Yacht deck and pool vibes."],["👠","Heels / going out shoes","Dinner and club Saturday night."],["🩴","Comfortable sandals","Daytime, walking, boat deck."],["💄","Full glam kit","Hair tools, makeup, lashes. You're on camera all weekend."],["💊","Medications & supplements","Don't forget your daily must-haves."],["🪪","Valid ID","Required for club entry and flights."],["☀️","SPF 50+ sunscreen","Miami November is still sunny — especially on the boat!"],["👜","Small going-out clutch","Phone, ID, card, lip gloss only."],["🔋","Portable charger","You WILL run out of battery. Non-negotiable."],["🎁","Gift for Amber (optional)","Lingerie, something cheeky, or a heartfelt card 💗"]];
+const defaultDinner=[{name:"MILA Miami",vibe:"MediterrAsian · Rooftop · Miami Beach",desc:"Stunning rooftop restaurant. Wagyu tartare, hamachi crudo, miso black cod. ⚠️ No bachelorette accessories.",link:"https://mila-miami.com"},{name:"Sexy Fish",vibe:"Japanese-Asian · Brickell · Theatrical",desc:"40-foot aquarium, 30-foot waterfall. Sushi, sashimi, Wagyu, Robata grill. ⚠️ Strict dress code.",link:"https://sexyfishmiami.com"},{name:"Kiki on the River",vibe:"Greek Mediterranean · Waterfront · Party",desc:"Iconic Miami River restaurant. Dinner turns into a DJ party. Dress code: elegant chic.",link:"https://www.kikiontheriver.com"},{name:"Swan Miami",vibe:"Upscale American · Design District · Glam",desc:"Pharrell's chic restaurant. Blush pink decor, white marble, celebrity energy.",link:"https://swanmiami.com"}];
+const defaultActivities=[{name:"Hunk-O-Mania Miami — Male Strippers",vibe:"🔥 Male Entertainment · Comes to Airbnb · Diverse Cast",desc:"Miami's #1 male revue show. 'Rent-A-Hunk' option comes directly to your Airbnb.",link:"https://hunkomaniamiami.com"},{name:"A Butler Company — Male & Female",vibe:"🔥 Male & Female · Comes to Airbnb · Custom",desc:"Professional male AND female exotic dancers that come directly to your Airbnb.",link:"https://abutlercompany.com"},{name:"R House Wynwood — Drag Brunch",vibe:"Drag · Wynwood · Bottomless mimosas",desc:"Voted best drag brunch in Miami. Fierce queens, bottomless mimosas, mojitos and sangria.",link:"https://rhousewynwood.com"}];
+const defaultClub=[];
+const defaultBrunch=[{name:"Tigertail + Mary",vibe:"Bar · Coconut Grove · Tropical vibes",desc:"Lush tropical bar in Coconut Grove with craft cocktails and a great patio.",link:"https://tigertailandmary.com"},{name:"Lagniappe",vibe:"Bar · Wynwood · Wine & cheese",desc:"Outdoor wine bar with live music and a huge backyard. Perfect for a girls night.",link:"https://lagniappehouse.com"},{name:"Sweet Liberty",vibe:"Bar · Mid-Beach · Award-winning",desc:"Award-winning cocktail bar beloved by locals. Relaxed vibe with creative drinks.",link:"https://mysweetliberty.com"}];
+const defaultActivities2=[{name:"Pole Dancing Class",vibe:"Activity · Private Studio · Girls Only",desc:"Private group class for bachelorette parties — many Miami studios include champagne. Book early!",link:""},{name:"Nikki Beach Club",vibe:"Beach Club · South Beach · Daytime",desc:"Iconic Miami Beach club with daybeds, bottle service and DJs.",link:"https://nikkibeach.com/miami"},{name:"Yacht Charter",vibe:"Water · Biscayne Bay · Scenic",desc:"Private yacht for the group — cruise Biscayne Bay with drinks and music.",link:""}];
+const defaultAwards=[{emoji:"🍾",title:"Most Turnt",desc:"Who went the hardest all weekend?"},{emoji:"😭",title:"Cried the Most",desc:"Happy tears, ugly tears — all tears count"},{emoji:"💃",title:"Best Dancer",desc:"Who owned the dance floor?"},{emoji:"📸",title:"Most Photogenic",desc:"Looked good in every single shot"},{emoji:"🤣",title:"Funniest Moment",desc:"Who had us dying laughing?"},{emoji:"👠",title:"Best Dressed",desc:"Showed UP every single night"},{emoji:"🫡",title:"Most Responsible",desc:"Kept everyone alive and accounted for"},{emoji:"🏃",title:"First to Bed",desc:"Tapped out early... we see you"},{emoji:"🌊",title:"Most Likely to Move to Miami",desc:"Didn't want to leave"},{emoji:"💸",title:"Biggest Spender",desc:"The bag was NOT on a budget"},{emoji:"🎤",title:"Hype Woman of the Trip",desc:"Kept the energy UP all weekend"},{emoji:"🐆",title:"Most Wild",desc:"Amber would be proud"},{emoji:"🥴",title:"Drunkest of the Weekend",desc:"We love you but... you were GONE"},{emoji:"⏰",title:"Took the Longest to Get Dressed",desc:"We were ALL waiting on you sis"}];
+
+// ── Playlist defaults (added) ──
+const defaultPlaylists=[
+  {id:"lingerie",emoji:"🐆",title:"Lingerie Party",desc:"Friday night — wild, sexy, unhinged",color:"#ff1493",spotifyLink:"https://open.spotify.com/embed/playlist/6YgYYZ4jnYtJc36i4faiFX",songs:[]},
+  {id:"pole",emoji:"💃",title:"Pole Dancing",desc:"Saturday morning — workout meets main character",color:"#c0006e",spotifyLink:"https://open.spotify.com/embed/playlist/3Bx2VvILBGWDsAJteLrSDw",songs:[]},
+  {id:"yacht",emoji:"🛥️",title:"Yacht Day",desc:"Sunday vibes — luxe, summer, feel-good",color:"#ff69b4",spotifyLink:"https://open.spotify.com/embed/playlist/65HTaM4aNj2Rl9bTXd0nbB",songs:[]}
+];
+
+let stats,itinerary,budget,flights,airbnbs,packing,dinner,activities,club,brunch,activities2,rsvps,mentions,awards,playlists;
+window._abTags=[];
+
+// ── Login ──
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    document.getElementById("login-screen").classList.add("curtains-open");
+    setTimeout(()=>document.getElementById("login-content").classList.add("visible"),900);
+  },300);
+});
+document.getElementById("pw-input").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+
+async function doLogin(){
+  const val=document.getElementById("pw-input").value;
+  const err=document.getElementById("pw-error");
+  if(val===ADMIN_PASSWORD||val.toLowerCase()===PASSWORD){
+    isAdmin=(val===ADMIN_PASSWORD);
+    if(isAdmin)document.body.classList.add("is-admin");
+    const flash=document.getElementById("unlock-flash");
+    flash.style.opacity="1";
+    setTimeout(()=>{flash.style.transition="opacity 0.6s ease";flash.style.opacity="0";},120);
+    err.style.color="#fff";err.textContent="Loading... 🐆";
+    const cloud=await loadAll();err.textContent="";
+    const ls=document.getElementById("login-screen");
+    ls.style.transition="opacity 0.5s ease,transform 0.5s ease";
+    ls.style.opacity="0";ls.style.transform="translateY(-40px)";
+    setTimeout(()=>{ls.style.display="none";document.getElementById("main-app").style.display="block";initApp(cloud);},500);
+  } else {
+    err.style.color="#ffe0f0";err.textContent="Wrong password babe! Try again 💗";
+    document.getElementById("pw-input").style.animation="shake 0.4s ease";
+    setTimeout(()=>document.getElementById("pw-input").style.animation="",400);
+  }
+}
+
+function goTo(id){document.getElementById(id)&&document.getElementById(id).scrollIntoView({behavior:"smooth"});}
+function startCountdown(){
+  const t=new Date("2026-11-06T15:00:00");
+  function tick(){const d=t-new Date();if(d<=0)return;document.getElementById("cd-d").textContent=String(Math.floor(d/86400000)).padStart(2,"0");document.getElementById("cd-h").textContent=String(Math.floor(d/3600000)%24).padStart(2,"0");document.getElementById("cd-m").textContent=String(Math.floor(d/60000)%60).padStart(2,"0");document.getElementById("cd-s").textContent=String(Math.floor(d/1000)%60).padStart(2,"0");}
+  tick();setInterval(tick,1000);
+}
+function pick(v,fb){if(Array.isArray(v)&&v.length)return v;if(v&&typeof v==="object"&&!Array.isArray(v)&&Object.keys(v).length)return v;return JSON.parse(JSON.stringify(fb));}
+
+function initApp(c){
+  stats=pick(c.stats,defaultStats);itinerary=pick(c.itinerary,defaultItinerary);budget=pick(c.budget,defaultBudget);
+  flights=pick(c.flights,defaultFlights);airbnbs=pick(c.airbnbs,defaultAirbnbs);packing=pick(c.packing,defaultPacking);
+  dinner=pick(c.dinner,defaultDinner);activities=pick(c.activities,defaultActivities);
+  club=Array.isArray(c.club)?c.club:[];
+  brunch=pick(c.brunch,defaultBrunch);
+  activities2=Array.isArray(c.activities2)?c.activities2:JSON.parse(JSON.stringify(defaultActivities2));
+  rsvps=Array.isArray(c.rsvps)?c.rsvps:[];
+  mentions=Array.isArray(c.mentions)?c.mentions:[];
+  const ca=Array.isArray(c.awards)?c.awards:null;
+  awards=ca?ca.map((a,i)=>({...defaultAwards[i],...a,votes:a.votes||{}})):defaultAwards.map(a=>({...a,votes:{}}));
+  playlists=Array.isArray(c.playlists)?c.playlists.map((p,i)=>({...defaultPlaylists[i],...p,spotifyLink:defaultPlaylists[i].spotifyLink})):JSON.parse(JSON.stringify(defaultPlaylists));
+  startCountdown();
+  document.querySelectorAll("[contenteditable][data-key]").forEach(el=>{
+    const k=el.dataset.key;
+    if(c[k]&&typeof c[k]==="string")el.textContent=c[k];
+    if(isAdmin){el.addEventListener("blur",()=>save(k,el.textContent));}
+    else{el.removeAttribute("contenteditable");el.style.borderBottom="none";el.style.cursor="default";}
+  });
+  if(isAdmin)document.getElementById("edit-banner").style.display="block";
+  renderStats();renderItinerary();renderBudget();renderAirbnbs();renderFlights();renderPacking();
+  renderOptions("dinner",dinner);renderOptions("activities",activities);renderOptions("club",club);renderOptions("brunch",brunch);renderOptions("activities2",activities2);
+  renderPlaylists();
+  renderRsvpStats();renderRsvpResponses();renderMentions();renderAwards();
+  document.getElementById("file-input").addEventListener("change",handleFiles);
+  if(!isAdmin)document.querySelectorAll(".admin-only,.btn-tag-del,.btn-add,.btn-add-gold").forEach(el=>el.style.display="none");
+}
+
+// ── Renders ──
+function renderStats(){document.getElementById("stats-grid").innerHTML=stats.map((s,i)=>'<div class="stat-cell"><div class="stat-num"'+(isAdmin?' contenteditable spellcheck="false" onblur="stats['+i+'][0]=this.textContent;save(\'stats\',stats)"':'')+'>'+s[0]+'</div><div class="stat-label"'+(isAdmin?' contenteditable spellcheck="false" onblur="stats['+i+'][1]=this.textContent;save(\'stats\',stats)"':'')+'>'+s[1]+'</div></div>').join("");}
+
+function renderItinerary(){
+  document.getElementById("itinerary-list").innerHTML=itinerary.map((d,i)=>{
+    const adm=isAdmin;
+    const ce=(field)=>adm?` contenteditable spellcheck="false" onblur="itinerary[${i}].${field}=this.textContent;save('itinerary',itinerary)"`:""
+    return `<div class="day-card"><div class="day-header"><div class="day-badge"><div class="day-badge-label">DAY</div><div class="day-badge-num">${d.day}</div></div><div><div class="day-title"${ce("title")}>${d.title}</div><div class="day-sub"${ce("sub")}>${d.sub}</div></div></div><div class="tags">${d.tags.map((t,j)=>`<span class="tag"><span${adm?` contenteditable spellcheck="false" onblur="itinerary[${i}].tags[${j}]=this.textContent;save('itinerary',itinerary)"`:""}>${t}</span>${adm?`<button class="btn-tag-del" onclick="delTag(${i},'tags',${j})">×</button>`:""}</span>`).join("")}${adm?`<button class="btn-add" style="padding:3px 10px;font-size:10px" onclick="addTag(${i},'tags')">+</button>`:""}</div><div class="tags">${d.gold.map((t,j)=>`<span class="tag-gold"><span${adm?` contenteditable spellcheck="false" onblur="itinerary[${i}].gold[${j}]=this.textContent;save('itinerary',itinerary)"`:""}>${t}</span>${adm?`<button class="btn-tag-del" style="color:#d4a017" onclick="delTag(${i},'gold',${j})">×</button>`:""}</span>`).join("")}${adm?`<button class="btn-add-gold" onclick="addTag(${i},'gold')">+</button>`:""}</div><div class="note"><span${ce("note")}>${d.note}</span></div></div>`;
+  }).join("");
+}
+function delTag(i,f,j){itinerary[i][f].splice(j,1);save("itinerary",itinerary);renderItinerary();}
+function addTag(i,f){itinerary[i][f].push("new item");save("itinerary",itinerary);renderItinerary();}
+function renderBudget(){document.getElementById("budget-rows").innerHTML=budget.map((r,i)=>`<div class="budget-row"><span${isAdmin?` contenteditable spellcheck="false" onblur="budget[${i}][0]=this.textContent;save('budget',budget)"`:""} >${r[0]}</span><span${isAdmin?` contenteditable spellcheck="false" onblur="budget[${i}][1]=this.textContent;save('budget',budget)"`:""} >${r[1]}</span></div>`).join("");}
+function addBudgetRow(){budget.push(["New line item","~$0"]);save("budget",budget);renderBudget();}
+
+function renderAirbnbs(){
+  document.getElementById("airbnb-list").innerHTML=airbnbs.map((a,i)=>`<div class="airbnb-card${a.rec?" top":""}">
+    ${a.rec?'<div class="top-badge">top pick for 13 girls</div>':""}
+    <div style="font-size:14px;font-weight:bold;color:#c0006e;margin-bottom:8px"${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].name=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.name}</div>
+    <div class="airbnb-meta">
+      <div>Location: <strong${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].loc=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.loc||""}</strong></div>
+      <div>Beds/Baths: <strong${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].beds=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.beds||""}</strong></div>
+      <div>Capacity: <strong${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].guests=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.guests||""}</strong></div>
+      <div>Rating: <strong${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].rating=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.rating||""}</strong></div>
+      <div style="grid-column:span 2">Price: <strong${isAdmin?` contenteditable spellcheck="false" onblur="airbnbs[${i}].price=this.textContent;save('airbnbs',airbnbs)"`:""}>${a.price||""}</strong></div>
+    </div>
+    <div class="tags" style="margin-bottom:10px">${(a.tags||[]).map((t,j)=>`<span class="tag">${t}${isAdmin?`<button class="btn-tag-del" onclick="delAbnbTag(${i},${j})">×</button>`:""}</span>`).join("")}${isAdmin?`<button class="btn-add" style="padding:3px 10px;font-size:10px" onclick="promptAbnbTag(${i})">+ tag</button>`:""}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      ${a.link?`<a href="${a.link}" target="_blank" style="background:#ffe0f0;border:1px solid #ff69b4;border-radius:20px;padding:5px 14px;font-size:12px;color:#c0006e">View on Airbnb</a>`:""}
+      ${isAdmin?`<button onclick="removeAirbnb(${i})" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:12px">× Remove</button>`:""}
+    </div>
+  </div>`).join("");
+}
+function delAbnbTag(i,j){airbnbs[i].tags.splice(j,1);save("airbnbs",airbnbs);renderAirbnbs();}
+function promptAbnbTag(i){const t=prompt("Add a tag:");if(t&&t.trim()){airbnbs[i].tags.push(t.trim());save("airbnbs",airbnbs);renderAirbnbs();}}
+function removeAirbnb(i){if(!confirm("Remove this Airbnb?"))return;airbnbs.splice(i,1);save("airbnbs",airbnbs);renderAirbnbs();}
+
+function showAddAirbnb(){
+  window._abTags=[];
+  const el=document.getElementById("airbnb-add-form");
+  el.style.display="block";
+  const tagOpts=["heated pool","hot tub","lakeview","rooftop terrace","infinity pool","jacuzzi","game room","fire pit","basketball court","mini golf","pickleball","trampoline","pool table","arcade","kayaks","home theater","waterfront"].map(t=>`<option value="${t}">${t}</option>`).join("");
+  el.innerHTML=`<div class="add-form">
+    <input type="text" id="ab-name" placeholder="Airbnb name — required"/>
+    <input type="text" id="ab-link" placeholder="Airbnb listing link"/>
+    <input type="text" id="ab-loc" placeholder="Location e.g. Miami Gardens, FL"/>
+    <input type="text" id="ab-beds" placeholder="Beds/Baths e.g. 6 BR / 5 BA"/>
+    <input type="text" id="ab-guests" placeholder="Max guests e.g. 16+ guests"/>
+    <input type="text" id="ab-rating" placeholder="Rating e.g. 4.85 (13 reviews)"/>
+    <input type="text" id="ab-price" placeholder="Price e.g. $4,500 / 3 nights"/>
+    <div style="display:flex;gap:6px;margin-bottom:6px">
+      <select id="ab-tag-sel" style="flex:1;margin-bottom:0"><option value="">Pick a tag…</option>${tagOpts}</select>
+      <input type="text" id="ab-tag-custom" placeholder="Or type tag" style="flex:1;margin-bottom:0"/>
+      <button class="btn-outline" style="white-space:nowrap;padding:6px 12px;margin-bottom:0;width:auto" onclick="addAbnbTagFromForm()">+ Add</button>
+    </div>
+    <div id="ab-tags-preview" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;min-height:10px"></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <input type="checkbox" id="ab-rec" style="width:auto;margin-bottom:0"/>
+      <label style="font-size:13px;color:#444">Mark as top pick</label>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="addAirbnb()">Add Airbnb</button>
+      <button class="btn-outline" onclick="document.getElementById('airbnb-add-form').style.display='none'">Cancel</button>
+    </div>
+  </div>`;
+}
+function addAbnbTagFromForm(){
+  const custom=document.getElementById("ab-tag-custom");
+  const sel=document.getElementById("ab-tag-sel");
+  const tag=(custom&&custom.value.trim())||(sel&&sel.value)||"";
+  if(!tag)return;
+  if(!window._abTags.includes(tag))window._abTags.push(tag);
+  if(custom)custom.value="";
+  if(sel)sel.value="";
+  refreshAbTagsPreview();
+}
+function refreshAbTagsPreview(){
+  const el=document.getElementById("ab-tags-preview");
+  if(!el)return;
+  el.innerHTML=window._abTags.map((t,i)=>`<span class="tag">${t} <button onclick="window._abTags.splice(${i},1);refreshAbTagsPreview()" style="background:none;border:none;color:#ff69b4;cursor:pointer;font-size:11px;padding:0">×</button></span>`).join("");
+}
+function addAirbnb(){
+  const name=(document.getElementById("ab-name")||{value:""}).value.trim();
+  if(!name)return;
+  airbnbs.push({name,link:(document.getElementById("ab-link")||{value:""}).value.trim(),loc:(document.getElementById("ab-loc")||{value:""}).value.trim(),beds:(document.getElementById("ab-beds")||{value:""}).value.trim(),guests:(document.getElementById("ab-guests")||{value:""}).value.trim(),rating:(document.getElementById("ab-rating")||{value:""}).value.trim(),price:(document.getElementById("ab-price")||{value:""}).value.trim(),tags:[...window._abTags],rec:!!(document.getElementById("ab-rec")&&document.getElementById("ab-rec").checked)});
+  save("airbnbs",airbnbs);
+  document.getElementById("airbnb-add-form").style.display="none";
+  renderAirbnbs();
+}
+
+function renderFlights(){
+  document.getElementById("flights-list").innerHTML=flights.map((f,i)=>`<div class="flight-row">
+    <div class="flight-header">
+      <div>
+        <div class="flight-name"${isAdmin?` contenteditable spellcheck="false" onblur="flights[${i}].name=this.textContent;save('flights',flights)"`:""}>${f.name}</div>
+        <div class="flight-code"${isAdmin?` contenteditable spellcheck="false" onblur="flights[${i}].code=this.textContent;save('flights',flights)"`:""}>${f.code}</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <span class="flight-price"${isAdmin?` contenteditable spellcheck="false" onblur="flights[${i}].price=this.textContent;save('flights',flights)"`:""}>${f.price}</span>
+        ${isAdmin?`<button onclick="removeFlight(${i})" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:16px">×</button>`:""}
+      </div>
+    </div>
+    <div class="flight-desc"${isAdmin?` contenteditable spellcheck="false" onblur="flights[${i}].desc=this.textContent;save('flights',flights)"`:""}>${f.desc}</div>
+    ${f.link?`<a href="${f.link}" target="_blank" class="btn" style="font-size:11px;margin-top:4px;display:inline-block">Book →</a>`:""}
+  </div>`).join("");
+}
+function removeFlight(i){flights.splice(i,1);save("flights",flights);renderFlights();}
+function showAddFlight(){
+  const el=document.getElementById("flight-add-form");
+  el.style.display="block";
+  el.innerHTML=`<div class="add-form">
+    <select id="fl-preset" style="margin-bottom:10px">
+      <option value="">Select airline to auto-fill…</option>
+      <option value="American Airlines|DFW → MIA|https://aa.com">American Airlines — DFW → MIA</option>
+      <option value="Southwest Airlines|DAL → MIA|https://southwest.com">Southwest Airlines — DAL → MIA</option>
+      <option value="Spirit Airlines|DFW → MIA|https://spirit.com">Spirit Airlines — DFW → MIA</option>
+      <option value="Frontier Airlines|DFW → MIA|https://flyfrontier.com">Frontier Airlines — DFW → MIA</option>
+      <option value="Delta|DFW → MIA|https://delta.com">Delta — DFW → MIA</option>
+      <option value="United Airlines|DFW → MIA|https://united.com">United Airlines — DFW → MIA</option>
+    </select>
+    <input type="text" id="fl-name" placeholder="Airline name"/>
+    <input type="text" id="fl-code" placeholder="Route e.g. DFW → MIA"/>
+    <input type="text" id="fl-price" placeholder="Price e.g. ~$180 or Check aa.com"/>
+    <input type="text" id="fl-desc" placeholder="Description (optional)"/>
+    <input type="text" id="fl-link" placeholder="Booking link e.g. https://aa.com"/>
+    <div class="btns">
+      <button class="btn" onclick="addFlight()">Add Airline</button>
+      <button class="btn-outline" onclick="document.getElementById('flight-add-form').style.display='none'">Cancel</button>
+    </div>
+  </div>`;
+  document.getElementById("fl-preset").addEventListener("change",function(){
+    const p=this.value.split("|");
+    if(p[0]){document.getElementById("fl-name").value=p[0]||"";document.getElementById("fl-code").value=p[1]||"";document.getElementById("fl-link").value=p[2]||"";}
+  });
+}
+function addFlight(){
+  const name=(document.getElementById("fl-name")||{value:""}).value.trim();
+  if(!name)return;
+  flights.push({name,code:(document.getElementById("fl-code")||{value:""}).value.trim(),price:(document.getElementById("fl-price")||{value:""}).value.trim(),desc:(document.getElementById("fl-desc")||{value:""}).value.trim(),link:(document.getElementById("fl-link")||{value:""}).value.trim()});
+  save("flights",flights);
+  document.getElementById("flight-add-form").style.display="none";
+  renderFlights();
+}
+
+function renderPacking(){document.getElementById("packing-list").innerHTML=packing.map((p,i)=>`<div class="packing-row"><span class="packing-icon">${p[0]}</span><span class="packing-text"><strong style="color:#c0006e">${p[1]}</strong> — ${p[2]}</span>${isAdmin?`<button onclick="delPacking(${i})" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;flex-shrink:0">×</button>`:""}</div>`).join("")+(isAdmin?`<button class="btn-add" style="margin-top:8px" onclick="addPacking()">+ Add packing item</button>`:"");}
+function delPacking(i){packing.splice(i,1);save("packing",packing);renderPacking();}
+function addPacking(){packing.push(["📦","New item","Description here"]);save("packing",packing);renderPacking();}
+
+// ── Options ──
+function getL(t){return {dinner,activities,club,brunch,activities2}[t];}
+function setL(t,v){if(t==="dinner")dinner=v;else if(t==="activities")activities=v;else if(t==="club")club=v;else if(t==="brunch")brunch=v;else if(t==="activities2")activities2=v;}
+function renderOptions(type,items){
+  document.getElementById(type+"-list").innerHTML=items.map((item,i)=>`<div class="option-card">
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+      <div class="option-name"${isAdmin?` contenteditable spellcheck="false" onblur="getL('${type}')[${i}].name=this.textContent;save('${type}',getL('${type}'))"`:""}>${item.name}</div>
+      ${isAdmin?`<button onclick="delOpt('${type}',${i})" style="background:none;border:none;color:#ccc;cursor:pointer;font-size:18px;line-height:1">×</button>`:""}
+    </div>
+    <div class="option-vibe"${isAdmin?` contenteditable spellcheck="false" onblur="getL('${type}')[${i}].vibe=this.textContent;save('${type}',getL('${type}'))"`:""}>${item.vibe||""}</div>
+    <div class="option-desc"${isAdmin?` contenteditable spellcheck="false" onblur="getL('${type}')[${i}].desc=this.textContent;save('${type}',getL('${type}'))"`:""}>${item.desc||""}</div>
+    ${item.link?`<a href="${item.link}" target="_blank" class="btn" style="font-size:11px">View</a>`:""}
+  </div>`).join("");
+}
+function delOpt(type,i){const l=getL(type);l.splice(i,1);setL(type,[...l]);save(type,getL(type));renderOptions(type,getL(type));}
+function showAddForm(type){
+  const el=document.getElementById(type+"-add-form");
+  el.style.display="block";
+  el.innerHTML=`<div class="add-form">
+    <input type="text" id="af-name" placeholder="Name — required"/>
+    <input type="text" id="af-link" placeholder="Website link (optional)"/>
+    <select id="af-vibe" style="margin-bottom:6px">
+      <option value="">Select vibe (optional)</option>
+      <optgroup label="🍽 Restaurant"><option>Rooftop · Miami Beach · Upscale</option><option>Waterfront · Brickell · Fine Dining</option><option>MediterrAsian · Rooftop · Miami Beach</option><option>Japanese · Brickell · Theatrical</option><option>Latin · Wynwood · Vibey</option><option>Seafood · South Beach · Fresh</option><option>Brunch · Outdoor · Chill</option></optgroup>
+      <optgroup label="🪩 Club"><option>Nightclub · South Beach · Bottle Service</option><option>Nightclub · Brickell · 24hr</option><option>Rooftop Club · Wynwood · DJ Sets</option><option>Beach Club · South Beach · Daytime</option><option>Ultra Lounge · Mid-Beach · VIP</option></optgroup>
+      <optgroup label="🍹 Bar"><option>Cocktail Bar · Wynwood · Trendy</option><option>Wine Bar · Coconut Grove · Chill</option><option>Rooftop Bar · Brickell · Skyline Views</option><option>Speakeasy · Downtown · Intimate</option><option>Pool Bar · Mid-Beach · Tropical</option></optgroup>
+      <optgroup label="🎉 Entertainment"><option>Male Entertainment · Comes to Airbnb</option><option>Female Entertainment · Comes to Airbnb</option><option>Drag Brunch · Wynwood · Bottomless</option><option>Axe Throwing · Wynwood · Girls Night</option><option>Paint and Sip · Wynwood · Creative</option></optgroup>
+      <optgroup label="🌴 Activity"><option>Pole Dancing · Private Studio · Girls Only</option><option>Yacht Charter · Biscayne Bay · Scenic</option><option>Jet Ski · Miami Beach · Thrills</option><option>Spa Day · Mid-Beach · Relax</option><option>Sunset Cruise · Biscayne Bay · Romantic</option></optgroup>
+    </select>
+    <input type="text" id="af-vibe-custom" placeholder="Or type your own vibe (optional)"/>
+    <input type="text" id="af-desc" placeholder="Description (optional)"/>
+    <div class="btns">
+      <button class="btn" onclick="addOpt('${type}')">Add</button>
+      <button class="btn-outline" onclick="document.getElementById('${type}-add-form').style.display='none'">Cancel</button>
+    </div>
+  </div>`;
+}
+function addOpt(type){
+  const name=(document.getElementById("af-name")||{value:""}).value.trim();
+  if(!name)return;
+  const link=(document.getElementById("af-link")||{value:""}).value.trim();
+  const vibeDropdown=(document.getElementById("af-vibe")||{value:""}).value;
+  const vibeCustom=(document.getElementById("af-vibe-custom")||{value:""}).value.trim();
+  const desc=(document.getElementById("af-desc")||{value:""}).value.trim();
+  const vibe=vibeCustom||vibeDropdown;
+  const list=getL(type);
+  list.push({name,link,vibe,desc});
+  setL(type,[...list]);
+  save(type,getL(type));
+  document.getElementById(type+"-add-form").style.display="none";
+  renderOptions(type,getL(type));
+}
+
+// ── Playlists (added) ──
+function renderPlaylists(){
+  const el=document.getElementById("playlists-board");
+  el.innerHTML=playlists.map((pl)=>{
+    const link=pl.spotifyLink.replace("/embed","");
+    return `<div class="card hot" style="margin-bottom:20px;border-color:${pl.color}">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="background:${pl.color};border-radius:12px;padding:10px 14px;font-size:24px">${pl.emoji}</div>
+        <div>
+          <div style="font-size:15px;font-weight:bold;color:${pl.color}">${pl.title}</div>
+          <div style="font-size:11px;color:#888;margin-top:2px">${pl.desc}</div>
+        </div>
+      </div>
+      <a href="${link}" target="_blank" rel="noopener noreferrer"
+         style="display:flex;align-items:center;justify-content:center;gap:10px;background:#1db954;color:#fff;border-radius:14px;padding:16px;font-size:14px;font-family:Georgia,serif;font-weight:bold;text-decoration:none;cursor:pointer">
+        ▶ Open Playlist in Spotify
+      </a>
+    </div>`;
+  }).join("");
+}
+function addSong(pi){
+  const title=(document.getElementById("st-"+pi)||{value:""}).value.trim();
+  const artist=(document.getElementById("sa-"+pi)||{value:""}).value.trim();
+  const addedBy=(document.getElementById("sb-"+pi)||{value:""}).value.trim();
+  if(!title||!addedBy)return;
+  playlists[pi].songs.push({title,artist,addedBy});
+  save("playlists",playlists);
+  renderPlaylists();
+}
+function deleteSong(pi,si){playlists[pi].songs.splice(si,1);save("playlists",playlists);renderPlaylists();}
+function setAppleLink(pi){
+  const val=(document.getElementById("apl-"+pi)||{value:""}).value.trim();
+  if(!val)return;
+  playlists[pi].appleLink=val;
+  save("playlists",playlists);
+  renderPlaylists();
+}
+
+// ── RSVP ──
+function renderRsvpStats(){const yes=rsvps.filter(r=>r.status==="yes").length,maybe=rsvps.filter(r=>r.status==="maybe").length,no=rsvps.filter(r=>r.status==="no").length;document.getElementById("rsvp-stats").innerHTML=[[yes,"confirmed 🎉","#1d9e75"],[maybe,"maybe","#d4a017"],[no,"can't make it","#e24b4a"],[rsvps.length,"total","#888"]].map(([n,l,c])=>`<div class="rsvp-stat"><div class="rsvp-stat-num" style="color:${c}">${n}</div><div class="rsvp-stat-label">${l}</div></div>`).join("");}
+function renderRsvpResponses(){
+  const el=document.getElementById("rsvp-responses");
+  if(!rsvps.length){el.innerHTML="";return;}
+  el.innerHTML=`<div style="font-size:11px;color:#c0006e;letter-spacing:2px;margin-bottom:8px;font-weight:bold">RESPONSES</div>`+
+  rsvps.map((r,i)=>{
+    const bg=r.status==="yes"?"#e6f9f0":r.status==="maybe"?"#fdf3e3":"#fce8e8";
+    const bc=r.status==="yes"?"#5dcaa5":r.status==="maybe"?"#d4a017":"#e24b4a";
+    const fc=r.status==="yes"?"#0f6e56":r.status==="maybe"?"#3d2b1f":"#a32d2d";
+    const label=r.status==="yes"?"✓ coming":r.status==="maybe"?"maybe":"can't make it";
+    return `<div class="rsvp-response"><div style="flex:1"><div style="font-size:13px;font-weight:bold;color:#c0006e">${r.name}</div>${r.handle?`<div style="font-size:12px;color:#ff69b4;margin-top:1px">📸 ${r.handle}</div>`:""}${r.note?`<div style="font-size:12px;color:#666;margin-top:1px">${r.note}</div>`:""}</div><div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><span class="rsvp-badge" style="background:${bg};border:1px solid ${bc};color:${fc}">${label}</span>${isAdmin?`<button onclick="deleteRsvp(${i})" style="background:none;border:none;color:#ff69b4;cursor:pointer;font-size:18px;line-height:1;padding:0">×</button>`:""}</div></div>`;
+  }).join("");
+}
+function deleteRsvp(i){rsvps.splice(i,1);save("rsvps",rsvps);renderRsvpStats();renderRsvpResponses();renderAwards();}
+function toggleHandle(){document.getElementById("rsvp-handle-wrap").style.display=document.getElementById("rsvp-status").value==="yes"?"block":"none";}
+function submitRsvp(){
+  const name=document.getElementById("rsvp-name").value.trim();if(!name)return;
+  const status=document.getElementById("rsvp-status").value;
+  const handle=status==="yes"?document.getElementById("rsvp-handle").value.trim():"";
+  const phone=document.getElementById("rsvp-phone").value.trim();
+  const note=document.getElementById("rsvp-note").value.trim();
+  rsvps.push({name,status,handle,phone,note});save("rsvps",rsvps);
+  document.getElementById("rsvp-name").value="";document.getElementById("rsvp-note").value="";document.getElementById("rsvp-handle").value="";document.getElementById("rsvp-phone").value="";document.getElementById("rsvp-status").value="yes";toggleHandle();
+  const d=document.getElementById("rsvp-done");d.style.display="block";setTimeout(()=>d.style.display="none",3000);
+  renderRsvpStats();renderRsvpResponses();renderAwards();
+}
+
+// ── Mentions ──
+function renderMentions(){
+  const el=document.getElementById("mentions-board");if(!mentions.length){el.innerHTML="";return;}
+  el.innerHTML=mentions.map((m,i)=>{const even=i%2===0;return `<div style="display:flex;justify-content:${even?"flex-start":"flex-end"};margin-bottom:14px;align-items:flex-end;gap:6px">${isAdmin&&even?`<button onclick="deleteMention(${i})" style="background:none;border:none;color:#ff69b4;cursor:pointer;font-size:18px;line-height:1;flex-shrink:0">×</button>`:""}<div style="max-width:75%"><div style="font-size:11px;color:#ff69b4;margin-bottom:4px;text-align:${even?"left":"right"}">${m.name} · ${m.time}</div><div style="background:${even?"#fff":"#ff1493"};color:${even?"#333":"#fff"};border:${even?"1px solid #ff69b4":"none"};border-radius:${even?"4px 18px 18px 18px":"18px 4px 18px 18px"};padding:12px 16px;font-size:13px;line-height:1.5;box-shadow:0 2px 8px rgba(255,20,147,0.15)">${m.text}</div></div>${isAdmin&&!even?`<button onclick="deleteMention(${i})" style="background:none;border:none;color:#ff69b4;cursor:pointer;font-size:18px;line-height:1;flex-shrink:0">×</button>`:""}</div>`;}).join("");
+}
+function deleteMention(i){mentions.splice(i,1);save("mentions",mentions);renderMentions();}
+function submitMention(){
+  const name=document.getElementById("mention-name").value.trim(),text=document.getElementById("mention-text").value.trim();if(!name||!text)return;
+  mentions.push({name,text,time:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})});save("mentions",mentions);
+  document.getElementById("mention-name").value="";document.getElementById("mention-text").value="";
+  const d=document.getElementById("mention-done");d.style.display="block";setTimeout(()=>d.style.display="none",3000);renderMentions();
+}
+
+// ── Awards ──
+function renderAwards(){
+  const el=document.getElementById("awards-board");
+  const allGirls=rsvps.map(r=>r.name);
+  const yesGirls=rsvps.filter(r=>r.status==="yes").map(r=>r.name);
+  const nomineeOpts=(yesGirls.length?yesGirls:allGirls);
+  el.innerHTML=defaultAwards.map((a,i)=>{
+    const award=awards[i]||{...a,votes:{}};
+    const votes=award.votes&&typeof award.votes==="object"&&!Array.isArray(award.votes)?award.votes:{};
+    const totals={};Object.values(votes).forEach(v=>{totals[v]=(totals[v]||0)+1;});
+    const sorted=Object.entries(totals).sort((x,y)=>y[1]-x[1]);
+    const winner=sorted[0];
+    const myVoterName=(localStorage.getItem&&localStorage.getItem("voter_name"))||"";
+    const voted=myVoterName&&votes[myVoterName];
+    const voterSelOpts=`<option value="">Your name…</option>`+allGirls.map(n=>`<option value="${n}">${n}</option>`).join("");
+    const nomSelOpts=`<option value="">Nominate…</option>`+nomineeOpts.map(n=>`<option value="${n}">${n}</option>`).join("");
+    return `<div class="card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+        <span style="font-size:24px">${a.emoji}</span>
+        <div style="flex:1"><div style="font-size:14px;font-weight:bold;color:#c0006e">${a.title}</div><div style="font-size:11px;color:#888">${a.desc}</div></div>
+        ${winner?`<div style="background:#ffe0f0;border:1px solid #ff69b4;border-radius:20px;padding:3px 12px;font-size:11px;color:#c0006e;white-space:nowrap">🏆 ${winner[0]} (${winner[1]})</div>`:""}
+        ${isAdmin?`<button onclick="clearVotes(${i})" style="background:none;border:1px solid #ffb3d1;border-radius:20px;padding:3px 10px;font-size:10px;color:#ff69b4;cursor:pointer;font-family:Georgia,serif;white-space:nowrap">🗑 clear</button>`:""}
+      </div>
+      ${!voted?`<div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;align-items:center">
+        <select id="voter-${i}" class="award-select" style="flex:1;min-width:100px;margin-bottom:0">${voterSelOpts}</select>
+        <select id="nominee-${i}" class="award-select" style="flex:2;min-width:120px;margin-bottom:0">${nomSelOpts}</select>
+        <button onclick="castVote(${i})" style="background:#ff1493;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:12px;cursor:pointer;font-family:Georgia,serif;white-space:nowrap">Vote 🐆</button>
+      </div>`:`<div style="font-size:12px;color:#ff69b4;font-style:italic;margin-bottom:8px">✓ You voted for <strong>${voted}</strong></div>`}
+      ${sorted.length?`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:${winner?"10px":"0"}">${sorted.map(([n,c])=>`<div style="background:#fff9f0;border:1px solid #d4a017;border-radius:20px;padding:3px 12px;font-size:11px;color:#3d2b1f">${n} · ${c} vote${c>1?"s":""}</div>`).join("")}</div>${winner?`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button onclick="sendEmail('${a.title}','${a.emoji}','${winner[0]}')" style="background:#ff1493;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:Georgia,serif">📧 to ${winner[0]}</button><button onclick="sendText('${a.title}','${a.emoji}','${winner[0]}')" style="background:#fff;border:1px solid #ff1493;color:#ff1493;border-radius:20px;padding:6px 14px;font-size:11px;cursor:pointer;font-family:Georgia,serif">💬 to ${winner[0]}</button></div>`:""}`:`<div style="font-size:11px;color:#ccc;font-style:italic">No votes yet — be the first! 💗</div>`}
+    </div>`;
+  }).join("");
+}
+function clearVotes(i){if(!confirm("Clear all votes for \""+defaultAwards[i].title+"\"?"))return;if(!awards[i])awards[i]={...defaultAwards[i],votes:{}};awards[i].votes={};save("awards",awards);renderAwards();}
+function castVote(i){
+  const voter=document.getElementById("voter-"+i).value.trim();
+  const nominee=document.getElementById("nominee-"+i).value.trim();
+  if(!voter||!nominee){alert("Please select your name and a nominee 💗");return;}
+  if(!awards[i])awards[i]={...defaultAwards[i],votes:{}};
+  if(awards[i].votes[voter]){alert("You already voted for this award! 💗");return;}
+  try{localStorage.setItem("voter_name",voter);}catch{}
+  awards[i].votes[voter]=nominee;save("awards",awards);renderAwards();
+}
+function sendEmail(title,emoji,name){window.open("mailto:?subject="+encodeURIComponent("You won an award! "+emoji)+"&body="+encodeURIComponent("Hey "+name+"! 🏆 You won \""+title+"\" at Amber's bachelorette! "+emoji+"\n\nWild Before the Vows — Miami 2026 🐆💗"));}
+function sendText(title,emoji,name){const w=rsvps.find(r=>r.name===name&&r.phone);const phone=w?w.phone.replace(/\D/g,""):"";const body=encodeURIComponent("Hey "+name+"! 🏆 You won \""+title+"\" at Amber's bachelorette! "+emoji+" Wild Before the Vows — Miami 2026 🐆💗");window.open(phone?"sms:"+phone+"?&body="+body:"sms:?&body="+body);}
+
+// ── Photos ──
+let photos=[];
+function handleFiles(e){Array.from(e.target.files).forEach(f=>{const r=new FileReader();r.onload=ev=>{photos.push({src:ev.target.result,type:f.type});renderPhotos();};r.readAsDataURL(f);});}
+function renderPhotos(){const g=document.getElementById("photos-grid"),emp=document.getElementById("photos-empty");emp.style.display=photos.length?"none":"block";g.innerHTML=photos.map((p,i)=>`<div class="photo-cell">${p.type.startsWith("video")?`<video src="${p.src}" controls></video>`:`<img src="${p.src}" alt="photo"/>`}<button class="photo-del" onclick="photos.splice(${i},1);renderPhotos()">×</button></div>`).join("");}
+</script>
+</body>
+</html>
